@@ -1,0 +1,32 @@
+﻿@model List<BookingKomViewModel>
+@inject AppDbContext db;
+@{
+    ViewData["Title"] = "Add Orang Bookingan";
+    var idPC = ViewBag.pcId;
+    var komputerInfo = db.Komputers.Find(idPC) as BokingWarnet.Models.DomainClass.Komputer;
+}
+
+<h1 class="display-4">Tambahkan Orang Booking Ke @komputerInfo.NamaKomputer</h1>
+<form asp-action="TambahBokingan" asp-route-pcId="@idPC" method="post">
+    <div class="card-body">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+        <div class="form-check m-1">
+            <input type="hidden" asp-for="@Model[i].OrangId" />
+            <input type="hidden" asp-for="@Model[i].NamaOrang" />
+            <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+            <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                @Model[i].NamaOrang
+            </label>
+            <br />
+            <label asp-for="@Model[i].JamBooking">Jam Booking</label>
+            <input asp-for="@Model[i].JamBooking" class="form-control" />
+        </div>
+        }
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-success">Update @komputerInfo.NamaKomputer Bookingan</button>
+        <a asp-action="Booking" class="btn btn-primary">Kembali</a>
+    </div>
+</form>

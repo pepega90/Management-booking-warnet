@@ -1,0 +1,59 @@
+﻿@model BokingViewModel
+@{
+    ViewData["Title"] = "Booking PC";
+}
+
+<h1 class="display-4">List Of Bookings</h1>
+<div class="row">
+    @foreach (var item in Model.komputers)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">@item.NamaKomputer</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">List Yang Booking</h6>
+                    <div style="height: 200px; overflow: auto;">
+                        @if (Model.listOrangBooking.Where(e => e.KomputerId == item.Id).Count() > 0)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Jam Booking</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var orang in Model.listOrangBooking.Where(e => e.KomputerId == item.Id))
+                                    {
+                                        <tr>
+                                            <td>@orang.Nama</td>
+                                            <td>@orang.TanggalBoking.Value.ToShortTimeString()</td>
+                                            <td>
+                                                <form method="post" asp-action="HapusBookingKom" asp-route-orangId="@orang.Id">
+                                                    <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <h5>Belum ada Yang Booking</h5>
+                        }
+                    </div>
+                    @{
+                        // Untuk dynamic button text dan class
+                        string isDisable = item.Status == "Diperbaiki" || item.Status == "Rusak" ? "disabled" : "";
+                        string buttonStatus = item.Status == "Diperbaiki" || item.Status == "Rusak" ? "Maaf Komputer sedang Diperbaiki atau Rusak" : "Tambah Orang Booking";
+                    }
+                    <a asp-action="TambahBokingan" asp-route-pcId="@item.Id" class="btn btn-primary @isDisable">@buttonStatus</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

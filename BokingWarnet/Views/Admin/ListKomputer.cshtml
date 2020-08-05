@@ -1,0 +1,36 @@
+﻿@model IEnumerable<BokingWarnet.Models.DomainClass.Komputer>
+
+@{
+    ViewData["Title"] = "List Komputer";
+    int noUrut = 0;
+}
+
+<h1 class="display-4">List Komputer</h1>
+<a asp-action="AddPC" class="btn btn-info mb-2">Tambah Komputer</a>
+<table class="table text-center">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Nama Komputer</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            ++noUrut;
+            <tr>
+                <th scope="row">@noUrut</th>
+                <td>@item.NamaKomputer</td>
+                <td>@item.Status</td>
+                <td>
+                    <form asp-action="HapusKomputer" asp-route-Id="@item.Id">
+                        <a asp-action="EditPC" asp-route-Id="@item.Id" class="btn btn-success">Edit</a>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

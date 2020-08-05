@@ -1,0 +1,21 @@
+﻿@model AddOrangViewModel
+
+@{ 
+    ViewData["Title"] = "Tambah Orang Booking";
+}
+
+<h1 class="display-4">Tambah Orang Booking</h1>
+<form asp-action="AddOrang" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Nama">Nama</label>
+        <input asp-for="Nama" class="form-control">
+    </div>
+    @*<div class="form-group">
+        <label asp-for="Komputers">Pilih PC</label>
+        <select class="custom-select" asp-items="@Model.Komputers">
+            <option>-- Pilih Booking PC --</option>
+        </select>
+    </div>*@
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

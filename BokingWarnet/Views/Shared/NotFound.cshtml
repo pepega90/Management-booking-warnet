@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "404 Not Found";
+}
+
+<div style="background-color: #ffff;" class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4 text-warning">404 Not Found</h1>
+        <p class="lead">@ViewBag.ErrMsg</p>
+        <hr class="my-4">
+        <a class="btn btn-outline-primary btn-lg" asp-action="Index" asp-controller="Home" role="button">Kembali Ke Halaman Utama</a>
+    </div>
+</div>

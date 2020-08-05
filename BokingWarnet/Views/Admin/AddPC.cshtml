@@ -1,0 +1,16 @@
+﻿@model AddPCViewModel
+
+@{ 
+    ViewData["Title"] = "Tambah PC";
+}
+
+<h1 class="display-4">Tambah PC</h1>
+<form asp-action="AddPC" method="post">
+<div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="NamaPC">Nama Komputer</label>
+        <input asp-for="NamaPC" class="form-control">
+        <small class="form-text text-muted">Seperti PC-1, Komputer 1 dll</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

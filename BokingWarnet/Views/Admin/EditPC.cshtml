@@ -1,0 +1,33 @@
+﻿@model EditPCViewModel
+
+@{
+    ViewData["Title"] = "Edit PC";
+}
+
+<h1 class="display-4">Tambah PC</h1>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="EditPC" method="post">
+    <div class="form-group">
+        <label asp-for="NamaPC">Nama Komputer</label>
+        <input asp-for="NamaPC" class="form-control">
+        <small class="form-text text-muted">Seperti PC-1, Komputer 1 dll</small>
+    </div>
+    <div class="form-group">
+        <label asp-for="StatusPC">Status</label>
+        <input hidden asp-for="Stats" />
+        <select asp-items="@Model.StatusPC" class="custom-select pilihan">
+            <option value="">-- Pilih Status Kondisi PC --</option>
+        </select>
+        <small class="form-text text-muted">Berfungsi, Diperbaiki, dan Rusak</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    let inputStatus = document.getElementById("Stats");
+    let selectStatus = document.querySelector('.pilihan');
+
+    selectStatus.addEventListener('change', () => {
+        inputStatus.value = selectStatus.value;
+    });
+</script>
