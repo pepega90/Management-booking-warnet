@@ -16,5 +16,6 @@ namespace BokingWarnet.Models
         void HapusKomputer(int Id);
 
         Komputer FindKomputerById(int Id);
+
     }
 }

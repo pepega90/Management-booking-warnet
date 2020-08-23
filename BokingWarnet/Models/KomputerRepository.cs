@@ -1,4 +1,5 @@
 ﻿using BokingWarnet.Models.DomainClass;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace BokingWarnet.Models
 
         public IEnumerable<Komputer> GetAllKomputer()
         {
-            return db.Komputers;
+            return db.Komputers.Include(e => e.OrangBookings);
         }
 
         public void HapusKomputer(int Id)
@@ -48,5 +49,6 @@ namespace BokingWarnet.Models
             db.Komputers.Remove(komputer);
             db.SaveChanges();
         }
+
     }
 }

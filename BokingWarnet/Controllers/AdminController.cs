@@ -30,18 +30,10 @@ namespace BokingWarnet.Controllers
 
         public IActionResult Booking()
         {
-            var bokingViewModel = new BokingViewModel();
-            foreach (var item in komputerRepository.GetAllKomputer())
-            {
-                bokingViewModel.komputers.Add(item);
-            }
 
-            foreach (var orang in appDbContext.OrangBooking.ToList())
-            {
-                bokingViewModel.listOrangBooking.Add(orang);
-            }
+            var model = komputerRepository.GetAllKomputer();
 
-            return View(bokingViewModel);
+            return View(model);
         }
 
         [HttpGet]
@@ -59,9 +51,17 @@ namespace BokingWarnet.Controllers
                 var bookingViewModel = new BookingKomViewModel
                 {
                     OrangId = item.Id,
-                    NamaOrang = item.Nama,
-                    IsSelected = false
+                    NamaOrang = item.Nama
                 };
+
+                if (item.KomputerId == komputer.Id)
+                {
+                    bookingViewModel.IsSelected = true;
+                }
+                else
+                {
+                    bookingViewModel.IsSelected = false;
+                }
 
                 model.Add(bookingViewModel);
             }
@@ -97,11 +97,16 @@ namespace BokingWarnet.Controllers
         }
 
         [HttpPost]
-        public IActionResult HapusBookingKom(int orangId)
+        public IActionResult HapusBookingKom(int orangId, int komputerId)
         {
             var orangBooking = appDbContext.OrangBooking.Find(orangId);
 
-            orangBooking.KomputerId = null;
+            var komputer = appDbContext.Komputers.Find(komputerId);
+
+            if (orangBooking != null)
+            {
+                komputer.OrangBookings.Remove(orangBooking);
+            }
 
             appDbContext.SaveChanges();
 
